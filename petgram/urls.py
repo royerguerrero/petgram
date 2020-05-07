@@ -1,11 +1,11 @@
 """petgram URL Configuration"""
-from django.contrib import admin
+# Django
 from django.urls import path
-from django.http import HttpResponse
-
-def hello_world(request):
-    return HttpResponse('👋Hello world!')
+# Local
+from petgram import views
 
 urlpatterns = [
-    path('hello', hello_world)
+    path('hi/<str:name>/<int:age>/', views.hi),
+    path('sort-numbers/', views.sorted_numbers),
+    path('hello-world/', views.hello_world),
 ]
