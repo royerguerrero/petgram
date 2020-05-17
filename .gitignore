@@ -190,4 +190,6 @@ pip-selfcheck.json
 # Ignore all local history of files
 .history
 
-# End of https://www.gitignore.io/api/django,python,virtualenv,visualstudiocode
+### Petgram project
+mdeia/
+users/pictures/*

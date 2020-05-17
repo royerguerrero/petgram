@@ -1,6 +1,8 @@
 """Views posts"""
 # Django
+from django.http import HttpResponse
 from django.shortcuts import render
+
 # Utilities
 from datetime import datetime
 
