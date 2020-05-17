@@ -1,8 +1,10 @@
 """Posts Admin"""
 # Django
 from django.contrib import admin
+from django.utils.html import mark_safe
 # Models
 from posts.models import Post
+
 
 @admin.register(Post)
 class PostsUsers(admin.ModelAdmin):
@@ -20,7 +22,7 @@ class PostsUsers(admin.ModelAdmin):
         ('Post Info', {
             'fields': (
               ('title', 'user'),
-              'photo'  
+              ('photo', 'photo_picture')
             ),
         }),
         ('Metadata', {
@@ -28,5 +30,7 @@ class PostsUsers(admin.ModelAdmin):
         }),
     )
 
-    readonly_fields = ('created', 'modified')
-    
+    readonly_fields = ('created', 'modified', 'photo_picture')
+
+    def photo_picture(self, obj):
+        return mark_safe(f'<img src="{obj.photo.url}" width="300px"/>')
