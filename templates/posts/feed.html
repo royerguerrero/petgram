@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %} Posts {% endblock title %}
+
+
+{% block container %}
+<div class="row">
+    {% for post in posts %}
+    <div class="col-12 my-3 d-flex justify-content-center">
+        <div class="card post">
+            <div class="card-header">
+                <img class="mr-3 rounded-circle" src="{{post.user.picture}}" alt="{{post.user.name}}" width="40px">
+                <span class="card-title font-weight-bolder">{{ post.user.name }}</span>
+            </div>
+            <div class="media">
+                <img class="img-fluid w-100" src="{{post.photo}}" alt="">
+            </div>
+            <div class="card-body">
+                <span class="font-weight-bolder d-block">{{post.title}}</span>
+                <small class="text-muted">{{post.timestamp}}</small>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Añadir un commentario</small>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock container %}

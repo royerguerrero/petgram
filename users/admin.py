@@ -2,6 +2,7 @@
 # Django
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.utils.html import mark_safe
 # Models
 from users.models import Profile
 from django.contrib.auth.models import User
@@ -18,7 +19,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ('Profile',{
-            'fields': (('user', 'picture'),),
+            'fields': (('user', 'picture', 'photo'),),
         }),
         ('Extra info',{
             'fields': (
@@ -33,7 +34,11 @@ class ProfileAdmin(admin.ModelAdmin):
         }),
     )
 
-    readonly_fields = ('created', 'modified')
+    readonly_fields = ('created', 'modified', 'photo')
+
+    def photo(self, obj):
+        return mark_safe(f'<img src="{obj.picture.url}" width="150px"/>')
+        
 
 
 class ProfileInline(admin.StackedInline):

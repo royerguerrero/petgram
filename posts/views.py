@@ -2,6 +2,7 @@
 # Django
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 # Utilities
 from datetime import datetime
@@ -36,6 +37,7 @@ posts = [
 	}
 ]
 
+@login_required
 def list_posts(request):
     """Return a posts"""
-    return render(request, 'feed.html', {'posts': posts})
+    return render(request, 'posts/feed.html', {'posts': posts})

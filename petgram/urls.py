@@ -7,12 +7,14 @@ from django.conf import settings
 # Local
 from petgram import views as local_views
 from posts import views as posts_views
+from users import views as users_views
 
 
 urlpatterns = [
-    path('hi/<str:name>/<int:age>/', local_views.hi),
-    path('sort-numbers/', local_views.sorted_numbers),
-    path('hello-world/', local_views.hello_world),
-    path('posts/', posts_views.list_posts),
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
+    path('', posts_views.list_posts, name='posts'),
+    path('hi/<str:name>/<int:age>/', local_views.hi, name='hi'),
+    path('sort-numbers/', local_views.sorted_numbers, name='sort'),
+    path('hello-world/', local_views.hello_world, name='hello'),
+    path('users/login', users_views.login_view, name='login'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
