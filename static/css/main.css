@@ -2,14 +2,14 @@
     height: 90vh;
 }
 
-.card {
-    width: 23rem;
-}
-
 .w-card {
     width: 23rem;
 }
 
 .post {
     width: 570px;
+}
+
+#edit_profile {
+    width: 30rem;
 }

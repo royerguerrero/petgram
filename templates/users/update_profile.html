@@ -1,15 +1,43 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ user.first_name }} {{ user.last_name }}{% endblock title %}
+{% block title %}{{ user.get_full_name }}{% endblock title %}
 
 {% load static %}
 
 {% block container %}
-<div class="info media">
-    <img class="rounded-circle shadow-lg" src="{{ user.profile.picture.url }}" alt="" width="80px">
-    <div class="media-body ml-2 my-auto">
-        <h1 class="h4">@{{ user.username|title }}</h1>
-        <h2 class="h6">{{ user.first_name }} {{ user.last_name }}</h2>
+<form action="{% url 'update_profile' %}" method="post">
+    {% csrf_token %}
+    <div class="card m-auto p-4 shadow-lg" id="edit_profile">
+        <div class="info media">
+            <img class="rounded-circle"
+                src="{% if user.profile.picture %} {{ user.profile.picture.url }} {% else %} {% static 'img/default_user.jpg' %} {% endif %}"
+                alt="" width="60px">
+            <div class="media-body ml-4">
+                <h1 class="h5">@{{ user.username|title }} | {{ user.get_full_name }}</h1>
+                <div class="form-group">
+                    <input type="file" class="form-control-file">
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="form-row w-100">
+            <div class="col-md-6 col-sm-12 my-1">
+                <input type="text" class="form-control" placeholder="First name" name="first_name" value="{{ user.first_name }}">
+            </div>
+            <div class="col-md-6 col-sm-12 my-1">
+                <input type="text" class="form-control" placeholder="Last name" name="last_name" value="{{ user.last_name }}">
+            </div>
+            <div class="col-12 form-group mt-3">
+                <input class="form-control" type="text" placeholder="Website" name="website" value="{{ user.profile.website }}">
+            </div>
+            <div class="col-12 form-group">
+                <textarea class="form-control" placeholder="Bio" name="bio" rows="3">{{ user.profile.biography }}</textarea>
+            </div>
+            <div class="col-12 form-group">
+                <input class="form-control" type="text" placeholder="Phone" name="phone_number" value="{{ user.profile.phone }}">
+            </div>
+        </div>
+        <button class="btn btn-primary btn-block" type="submit">Save</button>
     </div>
-</div>
+</form>
 {% endblock container %}

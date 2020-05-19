@@ -17,9 +17,7 @@
                             width="25px"></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'update_profile' %}"><img class="rounded-circle"
-                            src="{% if user.profile.picture.url %} {{ user.profile.picture.url }} {% else %} {% static 'img/default_user.jpg' %} {% endif %}"
-                            alt="" width="30px"></a>
+                    <a class="nav-link" href="{% url 'update_profile' %}"><img class="rounded-circle" src="{% if user.profile.picture %} {{ user.profile.picture.url }} {% else %} {% static 'img/default_user.jpg' %} {% endif %}" alt="" width="30px"></a>
                 </li>
             </ul>
         </div>
