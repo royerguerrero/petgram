@@ -1,4 +1,7 @@
 """Petgram middleware catalog"""
+# Django
+from django.shortcuts import redirect
+from django.urls import reverse
 
 class ProfileCompletionMiddleware:
     """ Profile completion middleware
@@ -14,4 +17,16 @@ class ProfileCompletionMiddleware:
 
     def __call__(self, request):
         """Code to be excluted for each request before the view is called"""
-        pass
+        if not request.user.is_anonymous and not request.user.is_staff:
+            profile = request.user.profile
+            if not profile.picture or not profile.biography:
+                allowed_urls = [
+                    reverse('update_profile'),
+                    reverse('logout'),
+                    reverse('admin:index')
+                ]
+                if request.path not in allowed_urls:
+                    return redirect('update_profile')
+
+        response = self.get_response(request)
+        return response

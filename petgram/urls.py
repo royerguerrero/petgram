@@ -11,7 +11,7 @@ from users import views as users_views
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
     path('', posts_views.list_posts, name='posts'),
     path('hi/<str:name>/<int:age>/', local_views.hi, name='hi'),
     path('sort-numbers/', local_views.sorted_numbers, name='sort'),
