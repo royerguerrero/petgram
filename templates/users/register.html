@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Sing Up{% endblock title %}
+
+{% block container %}
+{% load static %}
+<div class="full-h d-flex flex-column justify-content-center align-items-center">
+    <div class="card p-5 shadow-lg">
+        <img class="my-3 mx-auto" src="{% static 'img/logo.png' %}" alt="" width="200px">
+        {% if error %}
+        <div class="mt-2 alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>😔</strong> {{ error }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}
+        <form class="" action="{% url 'singup' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input class="form-control" type="text" name="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="email" name="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password_confiramtion" placeholder="Repeat password">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+        </form>
+    </div>
+    <div class="card p-3 my-3 text-center shadow-lg">
+        <span>¿Ya tengo una cuenta? <a class="text-decoration-none" href="{% url 'login' %}">Ingresar.</a>
+        </span>
+    </div>
+    <img src="{% static 'img/download.png' %}" alt="" width="350px">
+</div>
+{% endblock container %}

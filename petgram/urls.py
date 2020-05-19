@@ -17,4 +17,6 @@ urlpatterns = [
     path('sort-numbers/', local_views.sorted_numbers, name='sort'),
     path('hello-world/', local_views.hello_world, name='hello'),
     path('users/login', users_views.login_view, name='login'),
+    path('users/logout', users_views.logout_view, name='logout'),
+    path('users/singup', users_views.singup_view, name='singup')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

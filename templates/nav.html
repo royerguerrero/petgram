@@ -2,17 +2,17 @@
 
 <nav class="navbar navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href=""><img src="{% static 'img/logo.png' %}" alt="" width="150px"></a>
+        <a class="navbar-brand" href="{% url 'posts' %}"><img src="{% static 'img/logo.png' %}" alt="" width="150px"></a>
 
         <ul class="nav justify-content-end">
             <li class="nav-item">
-                <a class="nav-link" href="#"><img src="{% static 'img/home.svg' %}" alt="" width="30px"></a>
+                <a class="nav-link" href="{% url 'posts' %}"><img src="{% static 'img/home.svg' %}" alt="" width="30px"></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><img src="{% static 'img/exit.svg' %}" alt="" width="25px"></a>
+                <a class="nav-link" href="{% url 'logout' %}"><img src="{% static 'img/exit.svg' %}" alt="" width="25px"></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><img class="rounded-circle" src="{% if user.profile.picture.url %} {{ user.profile.picture.url }} {% else %} {% static 'img/default_user.jpg'%} {% endif %}" alt="" width="30px"></a>
+                <a class="nav-link" href="#"><img class="rounded-circle" src="{% if user.profile.picture.url %} {{ user.profile.picture.url }} {% else %} {% static 'img/default_user.jpg' %} {% endif %}" alt="" width="30px"></a>
             </li>
         </ul>
     </div>
