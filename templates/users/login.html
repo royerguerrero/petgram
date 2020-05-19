@@ -5,10 +5,10 @@
 {% block container %}
 {% load static %}
 <div class="full-h row d-flex justify-content-center align-items-center">
-    <div class="col-6">
-        <img class="img-fluid " src="{% static 'img/pets.png' %}" alt="">
+    <div class="col-md-6 order-2 order-md-1">
+        <img class="img-fluid" src="{% static 'img/pets.png' %}" alt="">
     </div>
-    <div class="col-6 d-flex flex-column align-items-center">
+    <div class="col-md-6 col-sm-12 d-flex flex-column align-items-center order-1 order-md-2 my-5">
         <div class="card shadow-lg align-items-center">
             <img class="my-5 " src="{% static 'img/logo.png' %}" alt="" width="200px">
             {% if error %}

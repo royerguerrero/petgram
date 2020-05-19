@@ -59,3 +59,8 @@ def singup_view(request):
         return redirect('login')
 
     return render(request, 'users/register.html')
+
+@login_required
+def update_profile(request):
+    """Update a user's profile view."""
+    return render(request, 'users/update_profile.html')

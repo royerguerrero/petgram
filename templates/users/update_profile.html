@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.first_name }} {{ user.last_name }}{% endblock title %}
+
+{% load static %}
+
+{% block container %}
+<div class="info media">
+    <img class="rounded-circle shadow-lg" src="{{ user.profile.picture.url }}" alt="" width="80px">
+    <div class="media-body ml-2 my-auto">
+        <h1 class="h4">@{{ user.username|title }}</h1>
+        <h2 class="h6">{{ user.first_name }} {{ user.last_name }}</h2>
+    </div>
+</div>
+{% endblock container %}
