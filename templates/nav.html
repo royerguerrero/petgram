@@ -2,22 +2,22 @@
 
 <header class="shadow px-2">
 
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="{% url 'posts' %}"><img class="img-fluid" src="{% static 'img/logo.png' %}" alt=""
+    <nav class="row navbar navbar-light bg-light">
+        <a class="col-5" href="{% url 'posts' %}"><img class="img-fluid" src="{% static 'img/logo.png' %}" alt=""
                 width="150px"></a>
 
-        <ul class="nav justify-content-end">
+        <ul class="nav col-7 justify-content-end pr-0">
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'posts' %}"><i data-feather="home" color="black"></i></a>
+                <a class="nav-link px-2" href="{% url 'posts' %}"><i data-feather="home" color="black"></i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'new_post' %}"><i data-feather="plus-square" color="black"></i></a>
+                <a class="nav-link px-2" href="{% url 'new_post' %}"><i data-feather="plus-square" color="black"></i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout' %}"><i data-feather="log-out" color="black"></i></a>
+                <a class="nav-link px-2" href="{% url 'logout' %}"><i data-feather="log-out" color="black"></i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'update_profile' %}"><img class="rounded-circle"
+                <a class="nav-link px-1" href="{% url 'update_profile' %}"><img class="rounded-circle"
                         src="{% if user.profile.picture %} {{ user.profile.picture.url }} {% else %} {% static 'img/default_user.jpg' %} {% endif %}"
                         alt="" width="30px"></a>
             </li>
