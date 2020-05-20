@@ -67,9 +67,27 @@ def singup_view(request):
 def update_profile(request):
     """Update a user's profile view."""
     if request.method == 'POST':
-        form = ProfileForm(request.POST)
+        form = ProfileForm(request.POST, request.FILES)
         if form.is_valid():
-            print(form.cleaned_data)
+            data = form.cleaned_data
+
+            profile = request.user.profile
+            user = request.user
+
+            user.first_name = data['first_name']
+            user.last_name = data['last_name']
+
+            profile.website = data['website']
+            profile.phone_number = data['phone_number']
+            profile.biography = data['biography']
+            # Ckecks that the picture is not empty when the form is reloaded
+            if data['picture']:
+                profile.picture = data['picture']
+
+            user.save()
+            profile.save()
+
+            return redirect('update_profile')
     
     else:
         form = ProfileForm()

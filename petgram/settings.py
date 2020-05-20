@@ -25,7 +25,7 @@ SECRET_KEY = 'a6rh8((dimir(v*w+ct@vqwnl!8$=a8e2ot^194tkv^w1!=ha_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['royjuni.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'royjuni.pythonanywhere.com']
 
 
 # Application definition

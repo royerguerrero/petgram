@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}New post{% endblock title %}
+
+{% block container %}
+    <div class="card shadow-lg w-forms w-auto">
+        <div class="p-4">
+            <h1 class="h4">Create a new post!</h1>
+            {{ form.errors }}
+            <form action="{% url 'new_post' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input class="form-control" type="text" name="title" placeholder="Title">
+                </div>
+                <div class="form-group">
+                    <label for="photo">Choose a photo</label>
+                    <input class="form-control-file" id="photo" type="file" name="photo" placeholder="Title">
+                </div>
+                <button class="btn btn-primary btn-block" type="submit">Publish!</button>
+            </form>
+        </div>
+    </div>
+{% endblock container %}

@@ -1,11 +1,17 @@
 """Views posts"""
 # Django
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 # Utilities
 from datetime import datetime
+
+# Models
+from posts.models import Post
+
+# Forms
+from posts.forms import PostForm
 
 posts = [
     {
@@ -38,6 +44,25 @@ posts = [
 ]
 
 @login_required
-def list_posts(request):
+def feed(request):
     """Return a posts"""
+    posts = Post.objects.all().order_by('created')
     return render(request, 'posts/feed.html', {'posts': posts})
+
+@login_required
+def new_post(request):
+	"""Create a new post view"""
+	if request.method == 'POST':
+		request.POST = request.POST.copy()
+		request.POST['user'] = request.user.pk
+		request.POST['profile'] = request.user.profile.pk
+		form = PostForm(request.POST, request.FILES)
+		print(form.is_valid())
+		if form.is_valid():
+			form.save()
+			return redirect('posts')
+		
+	else:
+		form = PostForm()
+
+	return render(request, 'posts/new.html', {'form': form})
