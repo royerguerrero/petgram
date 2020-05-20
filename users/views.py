@@ -87,7 +87,7 @@ def update_profile(request):
             user.save()
             profile.save()
 
-            return redirect('update_profile')
+            return redirect('posts')
     
     else:
         form = ProfileForm()

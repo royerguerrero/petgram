@@ -46,7 +46,7 @@ posts = [
 @login_required
 def feed(request):
     """Return a posts"""
-    posts = Post.objects.all().order_by('created')
+    posts = Post.objects.all().order_by('-created')
     return render(request, 'posts/feed.html', {'posts': posts})
 
 @login_required
