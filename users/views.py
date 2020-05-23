@@ -3,7 +3,9 @@
 # Django
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login, logout
+from django.views.generic import DetailView
 
 # Exceptions 
 from django.db.utils import IntegrityError
@@ -11,9 +13,26 @@ from django.db.utils import IntegrityError
 # Models
 from django.contrib.auth.models import User
 from users.models import Profile
+from posts.models import Post
 
 # Forms 
 from users.forms import ProfileForm
+
+class UserDetailView(LoginRequiredMixin, DetailView):
+    """User ditail view"""
+    template_name = "users/detail.html"
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+    queryset = User.objects.all()
+    context_object_name = 'user'
+
+    def get_context_data(self, **kwargs):
+        """Add user's posts to context."""
+        cxt = super().get_context_data(**kwargs)
+        user = self.get_object()
+        cxt['posts'] = Post.objects.filter(user=user).order_by('-created')
+        print(cxt)
+        return cxt
 
 def login_view(request):
     """Login view"""
@@ -24,7 +43,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            return redirect('posts')
+            return redirect('posts:posts')
         else:
             return render(request, 'users/login.html', {'error': 'El usuario o contraseña son invalidos', 'user': '132'})
 
@@ -34,7 +53,7 @@ def login_view(request):
 def logout_view(request):
     """Logout view"""
     logout(request)
-    return redirect('login')
+    return redirect('users:login')
     
 
 def singup_view(request):
@@ -87,7 +106,7 @@ def update_profile(request):
             user.save()
             profile.save()
 
-            return redirect('posts')
+            return redirect('posts:posts')
     
     else:
         form = ProfileForm()

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}{{user.get_full_name}}(@{{user.username}}){% endblock title %}
+
+{% block container %}
+{% load static %}
+<section class="w-75 m-auto row mb-5" id="user">
+    <div class="col-4 d-flex justify-content-center pr-5">
+        <img class="rounded-circle "
+            src="{% if user.profile.picture %}{{ user.profile.picture.url }}{% else %}{% static 'img/default_user.jpg' %}{% endif %}"
+            alt="" width="150px" height="150px">
+    </div>
+    <div class="col-8 py-3 d-flex flex-column justify-content-start">
+        <div>
+            <h1 class="h2 d-inline-block">@{{ user.username }}</h1>
+            {% if request.user.pk is user.pk %}
+            <a href="{% url 'users:update_profile' %}">
+                <button class="btn btn-outline-primary btn-sm mb-3 ml-3">Editar perfil</button>
+            </a>
+            {% else %}
+            <a href="">
+                <button class="btn btn-primary btn-sm mb-3 ml-3">Follow</button>
+            </a>
+            {% endif %}
+        </div>
+        <span class="font-weight-bolder">Posts {{posts|length}}</span>
+        <h2 class="h5 mb-0">{{ user.get_full_name }}</h2>
+        <p>{{ user.profile.biography }}</p>
+    </div>
+</section>
+<hr>
+<section class="row" id="posts">
+    <span class="col-12 text-muted text-center text-uppercase font-weight-lighter"><i data-feather="grid"
+            width="15px"></i> Publicaciones</span>
+    {% for post in posts %}
+    <div class="col-sm-12 col-md-4 d-flex align-items-center my-2">
+        <img class="img-fluid" src="{{ post.photo.url }}" alt="">
+    </div>
+    {% endfor %}
+
+</section>
+{% endblock container %}

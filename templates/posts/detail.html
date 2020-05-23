@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}{{post.title}}{% endblock title %}
+
+
+{% block container %}
+<div class="my-3 d-flex justify-content-center">
+    <div class="card post">
+        <div class="card-header">
+            <a class="text-decoration-none" href="{% url 'users:detail' post.user.username %}">
+                <img class="mr-3 rounded-circle" src="{{post.user.profile.picture.url}}"
+                    alt="{{post.user.get_full_name}}" width="40px">
+                <span class="card-title font-weight-bolder text-body">{{ post.user.get_full_name }}</span>
+            </a>
+        </div>
+        <div class="media">
+            <img class="img-fluid w-100" src="{{post.photo.url}}" alt="">
+        </div>
+        <div class="card-body">
+            <i data-feather="heart" color="black"></i> 33 Likes
+            <span class="font-weight-bolder d-block mt-2">{{post.title}}</span>
+            <small class="text-muted">{{post.modified}}</small>
+        </div>
+        <div class="card-footer">
+            <small class="text-muted">Añadir un commentario</small>
+        </div>
+    </div>
+</div>
+{% endblock container %}
