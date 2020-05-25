@@ -4,8 +4,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth import authenticate, login, logout
-from django.views.generic import DetailView
+from django.views.generic import DetailView, FormView, UpdateView
 
 # Exceptions 
 from django.db.utils import IntegrityError
@@ -16,7 +17,7 @@ from users.models import Profile
 from posts.models import Post
 
 # Forms 
-from users.forms import ProfileForm
+from users.forms import ProfileForm, SignupForm
 
 class UserDetailView(LoginRequiredMixin, DetailView):
     """User ditail view"""
@@ -28,11 +29,10 @@ class UserDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         """Add user's posts to context."""
-        cxt = super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         user = self.get_object()
-        cxt['posts'] = Post.objects.filter(user=user).order_by('-created')
-        print(cxt)
-        return cxt
+        context['posts'] = Post.objects.filter(user=user).order_by('-created')
+        return context
 
 def login_view(request):
     """Login view"""
@@ -56,31 +56,16 @@ def logout_view(request):
     return redirect('users:login')
     
 
-def singup_view(request):
-    """Register user"""
-    if request.method == 'POST':
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['password']
-        password_confirmation = request.POST['password_confiramtion']
+class SignupView(FormView):
+    """Regiter user"""
+    template_name = 'users/register.html'
+    form_class = SignupForm
+    success_url = reverse_lazy('users:login')
 
-        if password != password_confirmation:
-            return render(request, 'users/register.html', {'error': 'Las contraseñas no coinciden'})
-
-        try:
-            user = User.objects.create_user(username=username, password=password)
-        except IntegrityError:
-            return render(request, 'users/register.html', {'error': 'El username ya esta en uso'})
-            
-
-        user.email = email
-        user.save()
-
-        profile = Profile.objects.create(user=user)
-
-        return redirect('login')
-
-    return render(request, 'users/register.html')
+    def form_valid(self, form):
+        """Save form data"""
+        form.save()
+        return super().form_valid(form)
 
 @login_required
 def update_profile(request):

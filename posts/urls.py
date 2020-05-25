@@ -8,6 +8,6 @@ from posts import views
 
 urlpatterns = [
     path('', views.PostFeedView.as_view(), name='posts'),
-    path('posts/new/', views.new_post, name='new_post'),
-    path('<int:id>', views.PostDetailView.as_view(), name='detail_post'),
+    path('posts/new/', views.PostCreateView.as_view(), name='new_post'),
+    path('posts/<int:id>', views.PostDetailView.as_view(), name='detail_post'),
 ]

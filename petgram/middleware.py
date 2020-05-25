@@ -21,12 +21,12 @@ class ProfileCompletionMiddleware:
             profile = request.user.profile
             if not profile.picture or not profile.biography:
                 allowed_urls = [
-                    reverse('update_profile'),
-                    reverse('logout'),
+                    reverse('users:update_profile'),
+                    reverse('users:logout'),
                     reverse('admin:index')
                 ]
                 if request.path not in allowed_urls:
-                    return redirect('update_profile')
+                    return redirect('users:update_profile')
 
         response = self.get_response(request)
         return response
